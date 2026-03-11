@@ -13,6 +13,8 @@
     "dev:finance": "cross-env VITE_VARIANT=finance vite",
     "dev:happy": "cross-env VITE_VARIANT=happy vite",
     "build": "tsc && vite build",
+    "build:zeabur": "cross-env VITE_VARIANT=full tsc && cross-env VITE_VARIANT=full vite build",
+    "start:zeabur": "node zeabur-server.js",
     "build:sidecar-sebuf": "node scripts/build-sidecar-sebuf.mjs",
     "build:desktop": "node scripts/build-sidecar-sebuf.mjs && tsc && vite build",
     "build:full": "cross-env-shell VITE_VARIANT=full \"tsc && vite build\"",

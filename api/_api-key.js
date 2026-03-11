@@ -1,3 +1,11 @@
+// Extra allowed origins from EXTRA_ALLOWED_ORIGINS env var (comma-separated).
+// Example: EXTRA_ALLOWED_ORIGINS=https://my-app.zeabur.app
+const EXTRA_BROWSER_PATTERNS = (process.env.EXTRA_ALLOWED_ORIGINS || '')
+  .split(',')
+  .map(o => o.trim())
+  .filter(Boolean)
+  .map(o => new RegExp('^' + o.replace(/[.]/g, '\\.').replace(/\*/g, '[^/]+') + '$'));
+
 const DESKTOP_ORIGIN_PATTERNS = [
   /^https?:\/\/tauri\.localhost(:\d+)?$/,
   /^https?:\/\/[a-z0-9-]+\.tauri\.localhost(:\d+)?$/i,
@@ -8,6 +16,7 @@ const DESKTOP_ORIGIN_PATTERNS = [
 const BROWSER_ORIGIN_PATTERNS = [
   /^https:\/\/(.*\.)?worldmonitor\.app$/,
   /^https:\/\/worldmonitor-[a-z0-9-]+\.vercel\.app$/,
+  ...EXTRA_BROWSER_PATTERNS,
   ...(process.env.NODE_ENV === 'production' ? [] : [
     /^https?:\/\/localhost(:\d+)?$/,
     /^https?:\/\/127\.0\.0\.1(:\d+)?$/,

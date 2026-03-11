@@ -1,3 +1,12 @@
+// Extra allowed origins from EXTRA_ALLOWED_ORIGINS env var (comma-separated).
+// Use this to whitelist your Zeabur or custom domain without code changes.
+// Example: EXTRA_ALLOWED_ORIGINS=https://my-app.zeabur.app,https://staging.example.com
+const EXTRA_PATTERNS = (process.env.EXTRA_ALLOWED_ORIGINS || '')
+  .split(',')
+  .map(o => o.trim())
+  .filter(Boolean)
+  .map(o => new RegExp('^' + o.replace(/[.]/g, '\\.').replace(/\*/g, '[^/]+') + '$'));
+
 const ALLOWED_ORIGIN_PATTERNS = [
   /^https:\/\/(.*\.)?worldmonitor\.app$/,
   /^https:\/\/worldmonitor-[a-z0-9-]+-elie-[a-z0-9]+\.vercel\.app$/,
@@ -7,6 +16,7 @@ const ALLOWED_ORIGIN_PATTERNS = [
   /^https?:\/\/[a-z0-9-]+\.tauri\.localhost(:\d+)?$/i,
   /^tauri:\/\/localhost$/,
   /^asset:\/\/localhost$/,
+  ...EXTRA_PATTERNS,
 ];
 
 function isAllowedOrigin(origin) {

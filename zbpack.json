@@ -1,0 +1,6 @@
+{
+  "build_command": "npm run build:zeabur",
+  "start_command": "node zeabur-server.js",
+  "install_command": "npm install",
+  "output_dir": "dist"
+}
