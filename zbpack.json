@@ -1,5 +1,5 @@
 {
-  "build_command": "npm run build:zeabur",
-  "start_command": "node zeabur-server.js",
-  "install_command": "npm install"
+  "install_command": "npm install",
+  "build_command": "NODE_OPTIONS='--max-old-space-size=3072' npm run build:zeabur",
+  "start_command": "node zeabur-server.js"
 }
